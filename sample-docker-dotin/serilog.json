@@ -1,0 +1,38 @@
+{
+  "Serilog": {
+    "MinimumLevel": {
+      "Default": "Verbose",
+      "Override": {
+        "Microsoft": "Information",
+        "System": "Information"
+      }
+    },
+    "Using": [ "Serilog.Sinks.Async", "Serilog.Sinks.File" ],
+    "WriteTo": [
+      {
+        "Name": "Async",
+        "Args": {
+          "configure": [
+            {
+              "Name": "File",
+              "Args": {
+                "path": "Logs/Log-.log",
+                "rollingInterval": "Hour",
+                "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{TraceId}] - {SourceContext} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
+                "buffered": false,
+                "retainedFileCountLimit": null,
+                "rollOnFileSizeLimit": true,
+                "flushToDiskInterval": null
+              }
+            }
+          ],
+          "bufferSize": 10000,
+          "blockWhenFull": true
+        }
+      }
+    ],
+    "Properties": {
+      "Application": "OAuth"
+    }
+  }
+}
